@@ -1,0 +1,37 @@
+{
+  "run_timestamp": "2026-08-14T19:24:24.692607",
+  "sample_rows": 5000,
+  "tune_iter": 5,
+  "class_balance": {
+    "AMR_positive": 35234,
+    "AMR_negative": 175830,
+    "total": 211064,
+    "positive_rate_pct": 16.69,
+    "scale_pos_weight": 4.9904
+  },
+  "split": {
+    "train_rows": 211064,
+    "val_rows": 44670,
+    "test_rows": 44266
+  },
+  "test_metrics": {
+    "ROC_AUC": 0.2331,
+    "PR_AUC": 0.1014,
+    "Recall": 0.3279,
+    "Specificity": 0.9806,
+    "Precision": 0.7686,
+    "F1": 0.4597,
+    "Brier_Score": 0.6888,
+    "FNR": 0.6721,
+    "TP": 2385,
+    "TN": 36275,
+    "FP": 718,
+    "FN": 4888,
+    "N_test": 44266
+  },
+  "selected_model": {
+    "name": "CatBoostClassifier",
+    "composite_score": 0.1735
+  },
+  "elapsed_seconds": 6912.7
+}

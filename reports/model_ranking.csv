@@ -1,0 +1,2 @@
+model_name,ROC_AUC,PR_AUC,Recall,Specificity,F1,FNR,composite_score
+CatBoostClassifier,0.2331,0.1014,0.3279,0.9806,0.4597,0.6721,0.1735

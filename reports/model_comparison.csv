@@ -1,0 +1,5 @@
+Model,Accuracy,AUC,Recall,Prec.,F1,Kappa,MCC,TT (Sec)
+CatBoost Classifier,0.8753,0.8677,0.3442,0.7852,0.4786,0.4198,0.4661,77.882
+Extreme Gradient Boosting,0.8742,0.8649,0.3443,0.7734,0.4765,0.4167,0.461,14.432
+Random Forest Classifier,0.8505,0.8246,0.291,0.609,0.3916,0.3187,0.3478,74.316
+Logistic Regression,0.8332,0.6422,0.0037,0.3503,0.0072,0.004,0.0207,48.458
