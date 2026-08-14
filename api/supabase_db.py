@@ -2,9 +2,11 @@ import os
 import json
 import datetime
 from pathlib import Path
-from dotenv import load_dotenv
-
-load_dotenv(Path(__file__).parent.parent / ".env")
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
