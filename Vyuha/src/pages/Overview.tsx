@@ -46,7 +46,7 @@ const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
   const navigate = useNavigate();
 
   const totalPatients = 2000;
-  const todayPatients = dashboard?.patientsAssessed || 68;
+  const todayPatients = dashboard?.stats?.patientsAssessed || 68;
   const todayAppointments = 85;
 
   const pieData = [
