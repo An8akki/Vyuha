@@ -1,0 +1,441 @@
+/* Overview Page */
+
+.overview-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.overview-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+}
+
+.stat-card.stat-blue::before { background: var(--primary); }
+.stat-card.stat-red::before { background: var(--risk-high); }
+.stat-card.stat-amber::before { background: var(--risk-medium); }
+
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.stat-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-blue .stat-icon-wrap { background: var(--sky-blue); color: var(--primary); }
+.stat-red .stat-icon-wrap { background: var(--risk-high-bg); color: var(--risk-high); }
+.stat-amber .stat-icon-wrap { background: var(--risk-medium-bg); color: var(--risk-medium); }
+
+.stat-trend-icon { color: var(--risk-low); }
+
+.stat-value {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stat-sub {
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Main Grid */
+.overview-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+.overview-patients-card { overflow: hidden; }
+.overview-right { display: flex; flex-direction: column; gap: 16px; }
+
+/* Card Typography */
+.card-title {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.card-subtitle {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Patient cell */
+.patient-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.patient-avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--sky-blue);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.72rem;
+  font-family: var(--font);
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+
+.patient-name-sm {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.patient-id-badge {
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary);
+  background: var(--sky-blue);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.ward-tag {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: #F0F4FA;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+}
+
+/* Risk cell */
+.risk-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mini-risk-bar-bg {
+  width: 60px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mini-risk-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease-out;
+}
+
+.mini-risk-bar.high { background: var(--risk-high); }
+.mini-risk-bar.medium { background: var(--risk-medium); }
+.mini-risk-bar.low { background: var(--risk-low); }
+
+.risk-pct {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.risk-pct.high { color: var(--risk-high); }
+.risk-pct.medium { color: var(--risk-medium); }
+.risk-pct.low { color: var(--risk-low); }
+
+/* Trend */
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.trend.up { color: var(--risk-high); background: var(--risk-high-bg); }
+.trend.down { color: var(--risk-low); background: var(--risk-low-bg); }
+.trend.flat { color: var(--text-secondary); background: #F0F4FA; }
+
+/* Ward overview */
+.ward-overview-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ward-overview-row:last-child { border-bottom: none; }
+
+.ward-overview-label { width: 100px; flex-shrink: 0; }
+.ward-name-text {
+  display: block;
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+.ward-patients {
+  font-family: var(--font);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.ward-overview-bar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ward-overview-track {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ward-overview-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.5s ease-out;
+}
+
+.ward-overview-fill.high { background: linear-gradient(90deg, #F04455, #FF6B7A); }
+.ward-overview-fill.medium { background: linear-gradient(90deg, #F5A623, #FFB74D); }
+.ward-overview-fill.low { background: linear-gradient(90deg, #16B77A, #2ECC8A); }
+
+.ward-pct {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  width: 32px;
+  text-align: right;
+}
+
+/* Alerts */
+.alert-count-badge {
+  background: var(--risk-high);
+  color: white;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.alert-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+  cursor: pointer;
+}
+.alert-row:last-child { border-bottom: none; }
+.alert-row:hover { background: #FAFCFF; }
+
+.alert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.alert-dot.high { background: var(--risk-high); }
+.alert-dot.medium { background: var(--risk-medium); }
+
+.alert-msg {
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.alert-meta {
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* Chart */
+.overview-chart-card { overflow: hidden; }
+
+.chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+}
+.legend-dot.blue { background: var(--primary); }
+.legend-dot.red { background: var(--risk-high); }
+
+@media (max-width: 1100px) {
+  .overview-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .overview-main-grid { grid-template-columns: 1fr; }
+}
+
+/* Appointments list styles */
+
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.appointment-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background-color: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.appointment-row:hover {
+  border-color: var(--primary-light);
+  background-color: #f8fafc;
+}
+
+.apt-time {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.apt-patient {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.apt-id {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.apt-risk {
+  width: 200px;
+  padding: 0 20px;
+}
+
+.apt-action {
+  flex-shrink: 0;
+}
+
+.apt-btn {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+.appointment-row:hover .apt-btn {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+}
+
+.hover-lift-sm {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}

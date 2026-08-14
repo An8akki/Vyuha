@@ -1,0 +1,291 @@
+/* Intelligence Page */
+
+.intelligence-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.intel-filters {
+  padding: 16px 20px;
+}
+
+.intel-filter-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.intel-filter-row .form-group { flex: 1; }
+
+.intel-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+.intel-left { display: flex; flex-direction: column; gap: 20px; }
+.intel-right { display: flex; flex-direction: column; gap: 16px; }
+
+/* Badges */
+.intel-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--sky-blue);
+  color: var(--primary);
+}
+
+.intel-badge.blue { background: var(--sky-blue); color: var(--primary); }
+.intel-badge.amber { background: var(--risk-medium-bg); color: var(--risk-medium); }
+.intel-badge.red { background: var(--risk-high-bg); color: var(--risk-high); }
+
+/* Antibiogram */
+.abio-suscept {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.abio-suscept.good { color: var(--risk-low); }
+.abio-suscept.medium { color: var(--risk-medium); }
+.abio-suscept.poor { color: var(--risk-high); }
+
+.trend-tag {
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.trend-tag.stable { background: #F0F4FA; color: var(--text-secondary); }
+.trend-tag.declining { background: var(--risk-high-bg); color: var(--risk-high); }
+
+/* Forecast disclaimer */
+.forecast-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-top: 8px;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Ward Intel */
+.ward-intel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ward-intel-row:last-child { border-bottom: none; }
+
+.ward-intel-left { width: 90px; flex-shrink: 0; }
+
+.ward-intel-name {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.ward-intel-stats {
+  font-family: var(--font);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.ward-intel-bar-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ward-intel-pct {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  width: 28px;
+  text-align: right;
+}
+
+/* Emerging Signals */
+.signal-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.signal-row:last-child { border-bottom: none; }
+.signal-row:hover { background: #FAFCFF; }
+
+.signal-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.signal-icon.high {
+  background: var(--risk-high-bg);
+  color: var(--risk-high);
+}
+
+.signal-icon.medium {
+  background: var(--risk-medium-bg);
+  color: var(--risk-medium);
+}
+
+.signal-content { flex: 1; }
+
+.signal-title {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.signal-detail {
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.signal-ward {
+  font-family: var(--font);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+/* Network Card */
+.network-card { background: linear-gradient(135deg, #F3F7FF 0%, #EBF1FF 100%); }
+
+.roadmap-badge {
+  font-family: var(--font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  background: rgba(10, 95, 232, 0.1);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(10, 95, 232, 0.2);
+}
+
+.network-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+.network-node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.nn-icon {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.nn-label {
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.network-arrow {
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-align: center;
+}
+
+.network-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(10, 95, 232, 0.3);
+}
+
+.nc-icon {
+  display: flex;
+  align-items: center;
+}
+
+.nc-label {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: white;
+}
+
+.network-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+@media (max-width: 1100px) {
+  .intel-main-grid { grid-template-columns: 1fr; }
+  .intel-filter-row { flex-wrap: wrap; }
+}
+
+.network-svg-line {
+  stroke-dasharray: 6 4;
+  animation: streamData 1s linear infinite;
+  opacity: 0.6;
+}
+@keyframes streamData {
+  from { stroke-dashoffset: 20; }
+  to { stroke-dashoffset: 0; }
+}
