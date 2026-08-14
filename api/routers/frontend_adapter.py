@@ -146,6 +146,9 @@ async def get_intelligence_ui(ward: str = "ICU", organism: str = "PSEUDOMONAS"):
             trend.append({"day": "Today", "pressure": stats.get("high_risk_patients", 0), "forecast": False})
             
     return {
+        "antibiogram": [
+            {"antibiotic": "Meropenem", "susceptible": 45, "resistant": 55, "trend": "up"},
+            {"antibiotic": "Ciprofloxacin", "susceptible": 20, "resistant": 80, "trend": "up"}
         ],
         "trend": trend
     }
