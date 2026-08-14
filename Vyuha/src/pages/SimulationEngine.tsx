@@ -11,19 +11,20 @@ const useSpeech = () => {
     if (!voiceEnabled || !('speechSynthesis' in window)) { onEnd?.(); return; }
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.78;   // slower = clearer narration
-    u.pitch = 1.15;  // slightly higher pitch → female tone
+    u.rate = 0.9;    // slightly slower for clarity
+    u.pitch = 0.95;  // deeper, male tone
     u.volume = 1.0;
-    // Prefer female voice: Google US English Female, or any female/en-US
+    // Prefer male voice: Google Male, David, Daniel, etc.
     const voices = window.speechSynthesis.getVoices();
-    const female = voices.find(v => v.name.toLowerCase().includes('female') && v.lang.startsWith('en'))
-      || voices.find(v => v.name.includes('Zira'))  // Windows female
-      || voices.find(v => v.name.includes('Samantha')) // macOS female
-      || voices.find(v => v.name.includes('Google UK English Female'))
-      || voices.find(v => v.name.includes('Google US English') && !v.name.includes('Male'))
+    const male = voices.find(v => v.name.includes('Google UK English Male'))
+      || voices.find(v => v.name.includes('Google US English') && v.name.includes('Male'))
+      || voices.find(v => v.name.includes('David')) // Windows male
+      || voices.find(v => v.name.includes('Daniel')) // macOS male
+      || voices.find(v => v.name.includes('Alex')) // macOS male
+      || voices.find(v => v.name.toLowerCase().includes('male') && v.lang.startsWith('en'))
       || voices.find(v => v.lang === 'en-US')
       || voices[0];
-    if (female) u.voice = female;
+    if (male) u.voice = male;
     if (onEnd) u.onend = onEnd;
     window.speechSynthesis.speak(u);
   }, [voiceEnabled]);
@@ -166,21 +167,39 @@ const SimulationEngine: React.FC = () => {
       setSceneProgress(Math.min(100, (elapsed / dur) * 100));
     }, 50);
 
-    timerRef.current = setTimeout(() => {
-      goToScene(sceneIdx + 1);
-    }, dur);
+    // If voice is disabled, we use the fixed timer
+    if (!voiceEnabled) {
+      timerRef.current = setTimeout(() => {
+        goToScene(sceneIdx + 1);
+      }, dur);
+    }
 
     return () => {
       if (progressRef.current) clearInterval(progressRef.current);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [playing, sceneIdx, currentScene.duration, goToScene]);
+  }, [playing, sceneIdx, currentScene.duration, goToScene, voiceEnabled]);
 
-  // Start typing on scene change even when not playing
+  // Start typing and speaking on scene change
   useEffect(() => {
     startTyping(currentScene.narration);
-    if (playing) speak(currentScene.narration);
-  }, [sceneIdx, currentScene.narration, startTyping]);
+    if (playing) {
+      if (voiceEnabled) {
+        speak(currentScene.narration, () => {
+          // When speech finishes, wait a brief moment and advance
+          timerRef.current = setTimeout(() => {
+            // Need to check if still playing to prevent advancing after pause
+            setPlaying(p => {
+              if (p) goToScene(sceneIdx + 1);
+              return p;
+            });
+          }, 800);
+        });
+      } else {
+        speak(currentScene.narration); // Call anyway just in case it handles disabled state internally
+      }
+    }
+  }, [sceneIdx, currentScene.narration, startTyping, playing, speak, voiceEnabled, goToScene]);
 
   const handlePlay = () => {
     if (sceneIdx >= SCENES.length - 1 && !playing) {

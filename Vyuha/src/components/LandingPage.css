@@ -20,22 +20,20 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 120vw;
-  height: 120vw;
-  max-width: 1400px;
-  max-height: 1400px;
+  width: 200vw;
+  height: 200vw;
   background-image: url('/dna_realistic.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.12;
+  opacity: 0.15;
   transform: translate(-50%, -50%) rotate(0deg);
   z-index: 0;
   pointer-events: none;
-  animation: dnaRotate 80s linear infinite;
-  -webkit-mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
-  mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
-  mix-blend-mode: multiply;
+  animation: dnaRotate 120s linear infinite;
+  /* Use a soft circular mask so the hard rectangular edges of the image are completely invisible */
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 60%);
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 60%);
 }
 
 @keyframes dnaRotate {

@@ -91,7 +91,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLaunch }) => {
         </div>
 
         <div className="hero-visual-ref">
-          <img src="/doctor_transparent.png" alt="Doctor" style={{ width: '100%', maxWidth: 600, objectFit: 'contain', position: 'relative', zIndex: 10, filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))' }} />
+          <img src="/doctor_transparent.png" alt="Doctor" style={{ width: '100%', maxWidth: 500, objectFit: 'contain', position: 'relative', zIndex: 10, filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.2))', WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)', maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }} />
         </div>
       </section>
 
