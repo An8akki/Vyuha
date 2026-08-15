@@ -62,3 +62,16 @@ When you are ready to integrate the Frontend and Backend together, you can conta
 docker build -t amr-backend .
 docker run -p 8000:8000 amr-backend
 ```
+
+---
+
+## 🔐 Frontend Prototype Authentication
+The frontend prototype uses strict local environment variables to authenticate users. To run the frontend locally or deploy it to a service like Render, you **must** configure these variables.
+
+Create a `.env.local` file in the `Vyuha/` frontend directory (or add them to your deployment dashboard):
+```env
+VITE_STAFF_EMAIL=staff@amrguard.demo
+VITE_STAFF_PASSWORD=demo1234
+VITE_DOCTOR_EMAIL=doctor@amrguard.demo
+VITE_DOCTOR_PASSWORD=demo1234
+```
