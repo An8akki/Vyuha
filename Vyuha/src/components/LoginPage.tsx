@@ -19,18 +19,47 @@ interface LoginPageProps {
   onLogin: (role: UserRole, email: string, password: string) => Promise<void>;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onBack, onLogin }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ initialRole, onBack, onLogin }) => {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [selectedRole, setSelectedRole] = useState<UserRole>(initialRole || 'doctor');
+  const [email, setEmail] = useState(selectedRole === 'staff' ? 'staff@amrguard.demo' : 'doctor@amrguard.demo');
+  const [password, setPassword] = useState('demo1234');
+  const [error, setError] = useState('');
 
-  // Auto-login for hackathon demo to save time
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     try {
-      await onLogin('doctor', 'doctor@amrguard.demo', 'demo1234');
-    } catch (e) {
+      // Validate against local .env credentials
+      const envEmail = selectedRole === 'staff' ? import.meta.env.VITE_STAFF_EMAIL : import.meta.env.VITE_DOCTOR_EMAIL;
+      const envPass = selectedRole === 'staff' ? import.meta.env.VITE_STAFF_PASSWORD : import.meta.env.VITE_DOCTOR_PASSWORD;
+      
+      if (envEmail && envPass && (email !== envEmail || password !== envPass)) {
+        throw new Error("Invalid credentials. Please check your email and password.");
+      }
+
+      await onLogin(selectedRole, email, password);
+    } catch (e: any) {
+      setError(e.message || "Login failed");
       console.error("Login failed", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      // Mock Google Popup Delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+      // Log in via Google with the currently selected role
+      const googleEmail = selectedRole === 'staff' ? 'staff@amrguard.demo' : 'doctor@amrguard.demo';
+      await onLogin(selectedRole, googleEmail, 'demo1234');
+    } catch (e) {
+      console.error("Google Login failed", e);
     } finally {
       setLoading(false);
     }
@@ -100,9 +129,26 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onLogin }) => {
           
           <div className="form-area">
             <h1 className="form-title">{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
+            
+            <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
+              <button 
+                type="button" 
+                onClick={() => { setSelectedRole('doctor'); setEmail('doctor@amrguard.demo'); }} 
+                style={{ flex: 1, padding: '8px', borderRadius: '8px', border: selectedRole === 'doctor' ? '2px solid var(--primary)' : '1px solid var(--border)', background: selectedRole === 'doctor' ? 'rgba(30, 58, 138, 0.05)' : '#fff', fontWeight: selectedRole === 'doctor' ? 600 : 400 }}
+              >
+                Doctor Login
+              </button>
+              <button 
+                type="button" 
+                onClick={() => { setSelectedRole('staff'); setEmail('staff@amrguard.demo'); }} 
+                style={{ flex: 1, padding: '8px', borderRadius: '8px', border: selectedRole === 'staff' ? '2px solid var(--primary)' : '1px solid var(--border)', background: selectedRole === 'staff' ? 'rgba(30, 58, 138, 0.05)' : '#fff', fontWeight: selectedRole === 'staff' ? 600 : 400 }}
+              >
+                Staff Login
+              </button>
+            </div>
 
             <div className="sso-row">
-              <button className="sso-pill" onClick={handleAuth}>
+              <button className="sso-pill" onClick={handleGoogleAuth} style={{ border: '1px solid var(--border)' }}>
                 <svg width="15" height="15" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -125,6 +171,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onLogin }) => {
               <div className="or-line" />
             </div>
 
+            {error && (
+              <div style={{ padding: '10px 14px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--risk-high)', color: 'var(--risk-high)', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '16px' }}>
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleAuth}>
               {!isLogin && (
                 <div className="field-group">
@@ -138,14 +190,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onLogin }) => {
               <div className="field-group">
                 <label className="field-label">Email:</label>
                 <div className="input-wrap">
-                  <input type="email" className="input-field" placeholder="doctor@amrguard.demo" defaultValue="doctor@amrguard.demo" />
+                  <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" placeholder="email@example.com" />
                 </div>
               </div>
 
               <div className="field-group">
                 <label className="field-label">Password:</label>
                 <div className="input-wrap">
-                  <input type="password" className="input-field" placeholder="••••••••" defaultValue="demo1234" />
+                  <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="input-field" placeholder="••••••••" />
                 </div>
               </div>
 

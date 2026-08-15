@@ -21,6 +21,11 @@ const doctorNavItems = [
   { id: 'clinical-intelligence', label: 'Intelligence', icon: BarChart2 },
 ];
 
+const staffNavItems = [
+  { id: 'staff-dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
+  { id: 'patients', label: 'Patient Directory', icon: FolderOpen },
+];
+
 const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout, user }) => {
   const { patients } = usePortalData();
   const location = useLocation();
@@ -33,14 +38,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout, user }) => {
 
   const pageInfo: Record<string, { greeting?: string; title: string; subtitle?: string }> = {
     'doctor-dashboard': { greeting: `Good morning, Dr. ${user.name?.split(' ').pop() || user.shortName}`, title: 'Clinical Workload', subtitle: "Here's your clinical overview." },
+    'staff-dashboard': { greeting: `Good morning, ${user.name || user.shortName}`, title: 'Staff Administration', subtitle: "Hospital management and appointment scheduling." },
     appointments: { title: 'Appointments', subtitle: 'Daily schedule' },
     patients: { title: 'Clinical Records', subtitle: 'Patient history and risk profiles' },
     'clinical-intelligence': { title: 'Hospital AMR Intelligence', subtitle: 'Ward-level resistance trends and insights' },
     'clinical-view': { title: 'Patient Clinical View', subtitle: 'AMR Risk & Decision Support' },
   };
 
-  const current = pageInfo[activePage] || pageInfo['doctor-dashboard'];
-  const navItems = doctorNavItems;
+  const current = pageInfo[activePage] || (user.role === 'staff' ? pageInfo['staff-dashboard'] : pageInfo['doctor-dashboard']);
+  const navItems = user.role === 'staff' ? staffNavItems : doctorNavItems;
   const greeting = (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
       Good morning, {user.shortName} <Sun size={20} color="var(--primary)" />
@@ -76,8 +82,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout, user }) => {
 
           <div className="sidebar-divider" />
 
-        <div className={`sidebar-role-badge doctor`} style={{ position: 'relative', zIndex: 1 }}>
-          Doctor portal
+        <div className={`sidebar-role-badge ${user.role}`} style={{ position: 'relative', zIndex: 1 }}>
+          {user.role === 'staff' ? 'Staff Portal' : 'Doctor Portal'}
         </div>
 
         <nav className="sidebar-nav" style={{ position: 'relative', zIndex: 1 }}>

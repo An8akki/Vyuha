@@ -9,7 +9,7 @@ interface AppointmentsProps {
 }
 
 const Appointments: React.FC<AppointmentsProps> = ({ onNavigate }) => {
-  const { patients, loading, error, refresh } = usePortalData();
+  const { appointments, loading, error, refresh } = usePortalData();
   const navigate = useNavigate();
 
   return (
@@ -32,11 +32,13 @@ const Appointments: React.FC<AppointmentsProps> = ({ onNavigate }) => {
         </div>
         <div style={{ overflowY: 'auto', overflowX: 'hidden', padding: '0 24px 24px', flex: 1 }}>
           <div className="appointment-list">
-            {patients.slice(0, 15).map((p, idx) => {
-              // Mocking appointment times
-              const hour = 9 + Math.floor(idx / 2);
-              const min = idx % 2 === 0 ? '00' : '30';
-              const time = `${hour > 12 ? hour - 12 : hour}:${min} ${hour >= 12 ? 'PM' : 'AM'}`;
+            {appointments.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-secondary)' }}>
+                <h3>No appointments scheduled</h3>
+                <p>Staff can schedule new patients from the Staff Dashboard.</p>
+              </div>
+            ) : appointments.map((p, idx) => {
+              const time = p.time || "09:00 AM";
               
               return (
                 <div key={p.id} className="appointment-row hover-lift-sm hover-3d" onClick={() => navigate('/clinical-view', { state: { patient: p } })} style={{ padding: '16px 0', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 24 }}>

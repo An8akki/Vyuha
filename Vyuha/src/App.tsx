@@ -12,6 +12,7 @@ import { login, setAccessToken } from './api/client';
 import ClinicalView from './pages/ClinicalView';
 import { PortalDataProvider } from './context/PortalDataContext';
 import SimulationEngine from './pages/SimulationEngine';
+import StaffDashboard from './pages/StaffDashboard';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -29,7 +30,11 @@ function AppContent() {
     setAccessTokenState(session.accessToken);
     setUser(session.user);
     sessionStorage.setItem('amrGuardSession', JSON.stringify(session));
-    navigate('/doctor-dashboard');
+    if (role === 'staff') {
+      navigate('/staff-dashboard');
+    } else {
+      navigate('/doctor-dashboard');
+    }
   };
 
   const handleLogout = () => {
@@ -70,8 +75,9 @@ function AppContent() {
           <Route path="/monitoring" element={<Monitoring onNavigate={(p: string, d?: any) => { navigate(`/${p}`, { state: d }); }} />} />
           <Route path="/simulation" element={<SimulationEngine />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/staff-dashboard" element={<StaffDashboard />} />
           
-          <Route path="*" element={<Navigate to="/doctor-dashboard" replace />} />
+          <Route path="*" element={<Navigate to={user.role === 'staff' ? "/staff-dashboard" : "/doctor-dashboard"} replace />} />
         </Routes>
       </AppLayout>
     </PortalDataProvider>
