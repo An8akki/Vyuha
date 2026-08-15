@@ -1,7 +1,10 @@
 # AMR Clinical Decision Support System (CDSS) - Backend API
 
-[![Vyuha Demo Video](https://img.youtube.com/vi/zcnRFvI7m3M/0.jpg)](https://youtu.be/zcnRFvI7m3M)
-*(Click the image above to watch the full Video Demonstration)*
+<video src="https://github.com/An8akki/Vyuha/raw/main/demo.mp4" controls="controls" style="max-width: 100%;">
+  Your browser does not support the video tag.
+</video>
+
+📺 **[Watch Full Demo on YouTube](https://youtu.be/zcnRFvI7m3M)**
 
 This repository contains the Machine Learning Backend and Clinical Decision Support System (CDSS) for the AMR (Antimicrobial Resistance) prediction tool. 
 
