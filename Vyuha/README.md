@@ -1,5 +1,7 @@
 # Vyuha — AMR-GUARD
 
+🚀 **Live Deployment:** [https://vyuha-nzre.onrender.com/](https://vyuha-nzre.onrender.com/)
+
 AMR-GUARD is a clinical decision-support prototype for antimicrobial resistance
 (AMR) risk assessment. It provides separate doctor and staff workspaces for
 reviewing patient records, running assessments, monitoring risk, and exploring
