@@ -46,7 +46,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ onNavigate }) => {
                   
                   <div className="apt-patient" style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 16 }}>
                     <div className="patient-avatar-sm" style={{ width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, background: `hsl(${idx * 40}, 70%, 90%)`, color: `hsl(${idx * 40}, 70%, 30%)` }}>
-                      {p.name.split(' ').map(n => n[0]).join('')}
+                      {String(p.name).split(' ').map((n: string) => n[0]).join('')}
                     </div>
                     <div>
                       <div className="patient-name-sm" style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '1.05rem' }}>{p.name}</div>
